@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACICG | A Casa do Empresário — Campo Grande</title>
+<meta name="description" content="Associação Comercial e Industrial de Campo Grande — promovendo a união da classe empresarial desde 1926.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2946D2; --navy:#101D5C; --head:#16224E;
+  --tint:#F1F5FC; --tint2:#E7EEF9; --yel:#F6C445;
+  --ink:#232C3C; --mut:#5D6779; --line:#E5E9F1;
+  --pop:'Poppins',sans-serif; --sans:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+.container{width:min(1248px,calc(100% - 48px));margin-inline:auto}
+.kicker{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);background:var(--tint);border-radius:999px;padding:8px 16px}
+.kicker.on-tint{background:var(--tint2)}
+h2.title{font-family:var(--pop);font-weight:500;font-size:clamp(34px,3.6vw,48px);color:var(--head)}
+
+/* ===== Botões ===== */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;border:none;font-family:var(--sans);transition:transform .3s ease, box-shadow .3s ease, background-color .3s ease, color .3s ease, border-color .3s ease}
+.btn .ar{transition:transform .3s ease}
+.btn:hover .ar{transform:translateX(4px)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 8px 24px rgba(41,70,210,.25)}
+.btn-blue:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(41,70,210,.38)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(16,29,92,.3)}
+.btn-tint{background:var(--tint);color:var(--head)}
+.btn-tint:hover{transform:translateY(-2px);background:var(--tint2)}
+.btn-yel{background:var(--yel);color:var(--navy);font-weight:700}
+.btn-yel:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(246,196,69,.4)}
+.btn-outline{background:transparent;color:var(--head);border:1.4px solid #B9C3D9}
+.btn-outline:hover{transform:translateY(-2px);border-color:var(--blue);color:var(--blue)}
+.btn-outline-w{background:transparent;color:#fff;border:1.4px solid #5C6BB4}
+.btn-outline-w:hover{transform:translateY(-2px);border-color:#fff}
+.btn-sm{padding:12px 24px;font-size:14px}
+
+/* ===== Header ===== */
+header{position:fixed;inset:0 0 auto 0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:box-shadow .35s ease}
+header.scrolled{box-shadow:0 8px 30px rgba(16,29,92,.08)}
+.hwrap{display:flex;align-items:center;justify-content:space-between;height:84px;width:min(1344px,calc(100% - 48px));margin-inline:auto;gap:20px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo .mark{width:38px;height:38px;border-radius:10px;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:var(--pop);font-weight:600;font-size:19px}
+.logo .l1{font-family:var(--pop);font-weight:600;font-size:18px;color:var(--head);letter-spacing:.04em}
+.logo .l2{font-size:9px;font-weight:500;letter-spacing:.22em;color:var(--mut);margin-top:1px}
+.hnav{display:flex;align-items:center;gap:24px}
+.hnav a{color:var(--ink);font-size:14px;font-weight:500;position:relative;padding-bottom:4px}
+.hnav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--blue);transition:width .3s ease}
+.hnav a:hover::after{width:100%}
+.hnav a.hl{color:var(--blue);font-weight:600}
+.hactions{display:flex;align-items:center;gap:16px}
+.menu-btn{display:flex;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:6px}
+.menu-btn span{display:block;width:24px;height:2px;background:var(--ink);transition:width .3s ease}
+.menu-btn span:last-child{width:16px}
+.menu-btn:hover span:last-child{width:24px}
+@media(max-width:1120px){.hnav{display:none}}
+
+/* ===== Menu overlay ===== */
+.overlay{position:fixed;inset:0;background:rgba(16,29,92,.97);backdrop-filter:blur(8px);z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;pointer-events:none;transition:opacity .4s ease}
+.overlay.open{opacity:1;pointer-events:auto}
+.overlay a{font-family:var(--pop);font-weight:500;font-size:clamp(20px,2.6vw,27px);color:#fff;padding:8px 0;transition:color .3s ease,letter-spacing .3s ease}
+.overlay a:hover{color:var(--yel);letter-spacing:.03em}
+.overlay .close{position:absolute;top:28px;right:40px;font-size:30px;color:#fff;background:none;border:none;cursor:pointer}
+
+/* ===== Hero ===== */
+.hero{padding:170px 24px 0;text-align:center;overflow:hidden}
+.hero .tag{margin-inline:auto}
+.hero h1{font-family:var(--pop);font-weight:500;font-size:clamp(38px,4.6vw,62px);line-height:1.18;color:var(--head);max-width:900px;margin:26px auto 0}
+.hero p{color:var(--mut);font-size:clamp(15px,1.3vw,17px);line-height:1.7;max-width:760px;margin:26px auto 0}
+.hero .ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+.mosaic{display:flex;gap:24px;align-items:flex-end;justify-content:center;margin-top:70px;position:relative;max-width:1344px;margin-inline:auto}
+.mosaic .tile{border-radius:20px;overflow:hidden;box-shadow:0 14px 40px rgba(16,29,92,.12);flex:0 0 auto}
+.mosaic .tile img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.mosaic .tile:hover img{transform:scale(1.05)}
+.t1{width:200px;height:260px}.t2{width:264px;height:300px}.t3{width:320px;height:346px}.t4{width:264px;height:300px}.t5{width:200px;height:260px}
+.chip100{position:absolute;right:24px;bottom:130px;background:#fff;border-radius:16px;padding:14px 18px;display:flex;gap:12px;align-items:center;box-shadow:0 14px 40px rgba(16,29,92,.16)}
+.chip100 .ic{width:34px;height:34px;border-radius:10px;background:var(--yel);display:grid;place-items:center;color:var(--navy);font-weight:700}
+.chip100 b{font-family:var(--pop);font-weight:600;font-size:15px;color:var(--head);display:block}
+.chip100 span{font-size:11px;color:var(--mut)}
+@media(max-width:1200px){.t1,.t5{display:none}}
+@media(max-width:760px){.t2,.t4{display:none}.t3{width:min(90vw,360px)}}
+
+/* ===== Parceiros ===== */
+.parceiros{padding:64px 24px 56px;text-align:center}
+.parceiros p{color:var(--mut);font-size:14px}
+.parceiros .logos{display:flex;gap:56px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.parceiros .logos span{font-family:var(--pop);font-weight:600;font-size:17px;color:#9AA6BD;transition:color .3s ease}
+.parceiros .logos span:hover{color:var(--blue)}
+
+/* ===== Reveal ===== */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.on{opacity:1;transform:none}
+.reveal.dl1{transition-delay:.08s}.reveal.dl2{transition-delay:.16s}.reveal.dl3{transition-delay:.24s}.reveal.dl4{transition-delay:.32s}
+.hero .in{opacity:0;transform:translateY(24px);animation:rise .9s cubic-bezier(.22,1,.36,1) forwards}
+.hero .in.d1{animation-delay:.1s}.hero .in.d2{animation-delay:.22s}.hero .in.d3{animation-delay:.34s}.hero .in.d4{animation-delay:.46s}.hero .in.d5{animation-delay:.6s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ===== Serviços ===== */
+.servicos{padding:90px 0;text-align:center}
+.servicos .sub{color:var(--mut);font-size:16px;margin-top:16px}
+.svc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:56px;text-align:left}
+.svc{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 26px;min-height:280px;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(16,29,92,.06);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+.svc:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(16,29,92,.13);border-color:#C9D6EF}
+.svc .ic{width:52px;height:52px;border-radius:14px;background:var(--tint);display:grid;place-items:center;font-size:20px;font-weight:600;color:var(--blue)}
+.svc .ic.y{background:#FCEEC5;color:#B8860B}
+.svc h3{font-family:var(--pop);font-weight:600;font-size:18px;color:var(--head);line-height:1.35;margin-top:22px}
+.svc a{margin-top:auto;color:var(--blue);font-size:14px;font-weight:600}
+.svc a .ar{display:inline-block;transition:transform .3s ease}
+.svc:hover a .ar{transform:translateX(5px)}
+.servicos .more{margin-top:44px}
+@media(max-width:1080px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+/* ===== Colônia ===== */
+.colonia{background:var(--tint);padding:90px 0}
+.colonia .grid{display:grid;grid-template-columns:620px 1fr;gap:64px;align-items:start}
+.colonia .photo{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 18px 50px rgba(16,29,92,.14)}
+.colonia .photo img{transition:transform .7s ease}
+.colonia .photo:hover img{transform:scale(1.04)}
+.ychip{position:absolute;top:-14px;right:-8px;background:var(--yel);border-radius:16px;padding:12px 20px;color:var(--navy);box-shadow:0 12px 30px rgba(246,196,69,.45)}
+.ychip b{font-family:var(--pop);font-weight:600;font-size:17px;display:block}
+.ychip span{font-size:11px;font-weight:500;color:#3A3F55}
+.playchip{position:absolute;left:28px;bottom:24px;display:inline-flex;align-items:center;gap:12px;background:#fff;border-radius:999px;padding:9px 22px 9px 9px;color:var(--head);font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 10px 26px rgba(16,29,92,.2);transition:transform .3s ease}
+.playchip:hover{transform:translateY(-2px)}
+.playchip .p{width:28px;height:28px;border-radius:50%;background:var(--blue);display:grid;place-items:center;color:#fff;font-size:10px}
+.colonia h2{margin-top:16px}
+.colonia .desc{color:var(--mut);font-size:16px;line-height:1.75;margin:22px 0 34px;max-width:560px}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:60px}
+.mini{background:#fff;border-radius:20px;padding:34px 36px;box-shadow:0 12px 36px rgba(16,29,92,.08);transition:transform .35s ease,box-shadow .35s ease}
+.mini:hover{transform:translateY(-5px);box-shadow:0 22px 50px rgba(16,29,92,.13)}
+.mini h3{font-family:var(--pop);font-weight:600;font-size:20px;color:var(--head)}
+.mini p{color:var(--mut);font-size:14px;line-height:1.65;margin:12px 0 16px}
+.mini a{color:var(--blue);font-weight:600;font-size:14px}
+@media(max-width:1080px){.colonia .grid{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr}}
+
+/* ===== HUB ===== */
+.hub{padding:60px 0}
+.hubbox{background:var(--navy);border-radius:28px;padding:64px;display:grid;grid-template-columns:1fr 488px;gap:60px;align-items:center;color:#fff;position:relative;overflow:hidden}
+.hubbox::after{content:'';position:absolute;right:-80px;top:-160px;width:520px;height:520px;border-radius:50%;background:#1A2A78}
+.hubbox>*{position:relative;z-index:1}
+.hubbox .kicker{background:transparent;color:var(--yel);padding:0}
+.hubbox h2{font-family:var(--pop);font-weight:500;font-size:44px;margin-top:10px}
+.hubbox .desc{color:#C7D2F4;font-size:16px;line-height:1.7;margin:22px 0 30px;max-width:480px}
+.phonechip{display:inline-block;background:#1B2A74;border-radius:14px;padding:12px 20px;margin-bottom:32px}
+.phonechip small{display:block;font-size:9px;font-weight:600;letter-spacing:.16em;color:#8FA0DE}
+.phonechip b{font-family:var(--pop);font-weight:600;font-size:19px}
+.hubbox .photo{border-radius:20px;overflow:hidden}
+.hubbox .photo img{transition:transform .7s ease}
+.hubbox .photo:hover img{transform:scale(1.04)}
+@media(max-width:1080px){.hubbox{grid-template-columns:1fr;padding:40px}}
+
+/* ===== Notícias ===== */
+.noticias{padding:100px 0}
+.noticias .top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:22px}
+.news-grid{display:grid;grid-template-columns:610px 1fr;gap:66px;margin-top:50px}
+.featured .photo{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 16px 44px rgba(16,29,92,.12)}
+.featured .photo img{transition:transform .7s ease}
+.featured:hover .photo img{transform:scale(1.04)}
+.tag-destaque{position:absolute;top:22px;left:22px;background:var(--yel);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:.14em;border-radius:999px;padding:8px 15px}
+.featured h3{font-family:var(--pop);font-weight:600;font-size:23px;color:var(--head);line-height:1.4;margin:24px 0 12px}
+.featured .more{color:var(--blue);font-weight:600;font-size:14px}
+.nlist{display:flex;flex-direction:column}
+.nrow{display:flex;gap:20px;align-items:flex-start;justify-content:space-between;padding:22px 12px;border-bottom:1px solid var(--line);transition:background-color .3s ease,transform .3s ease;border-radius:10px}
+.nrow:last-child{border-bottom:none}
+.nrow:hover{background:var(--tint);transform:translateX(6px)}
+.nrow .meta{font-size:10px;font-weight:600;letter-spacing:.12em;color:#7C89A6}
+.nrow h4{font-size:16px;font-weight:600;color:var(--head);line-height:1.45;margin-top:8px;max-width:480px}
+.nrow .ar{font-family:var(--pop);font-size:19px;color:var(--blue);transition:transform .3s ease}
+.nrow:hover .ar{transform:translateX(6px)}
+@media(max-width:1080px){.news-grid{grid-template-columns:1fr}}
+
+/* ===== Eventos ===== */
+.eventos{background:var(--tint);padding:90px 0}
+.ev-grid{display:grid;grid-template-columns:1fr 560px 224px;gap:40px;align-items:start}
+.eventos .sub{color:var(--mut);font-size:15px;line-height:1.7;margin-top:20px}
+.eventos h2{margin-top:14px}
+.eventos .real{margin-top:52px}
+.eventos .real small{display:block;font-size:10px;font-weight:600;letter-spacing:.16em;color:#7C89A6;margin-bottom:8px}
+.eventos .real p{font-size:12px;color:var(--mut);line-height:1.7}
+.agenda{background:#fff;border-radius:24px;padding:14px 32px;box-shadow:0 16px 44px rgba(16,29,92,.1)}
+.arow{display:flex;align-items:center;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);transition:transform .3s ease}
+.arow:last-of-type{border-bottom:none}
+.arow:hover{transform:translateX(6px)}
+.datechip{flex:0 0 76px;text-align:center;background:var(--yel);color:var(--navy);border-radius:10px;font-weight:700;font-size:12px;padding:9px 0}
+.arow h4{font-size:15px;font-weight:600;color:var(--head);flex:1}
+.arow .ar{font-family:var(--pop);color:var(--blue)}
+.agenda .foot{font-size:12px;color:#7C89A6;padding:14px 0 10px}
+.qrcard{background:var(--navy);border-radius:24px;padding:32px;color:#fff;box-shadow:0 18px 48px rgba(16,29,92,.28)}
+.qrcard h3{font-family:var(--pop);font-weight:600;font-size:22px;line-height:1.25}
+.qrcard .qr{background:#fff;border-radius:12px;padding:10px;width:132px;margin:22px 0}
+.qrcard p{font-size:13px;color:#C7D2F4;line-height:1.6}
+.qrcard .btn{margin-top:24px}
+@media(max-width:1200px){.ev-grid{grid-template-columns:1fr}.qrcard{max-width:320px}}
+
+/* ===== Fale Conosco ===== */
+.contato{padding:100px 0}
+.ct-grid{display:grid;grid-template-columns:1fr 644px;gap:70px;align-items:start}
+.contato .sub{color:var(--mut);font-size:16px;line-height:1.7;margin-top:20px}
+.contato h2{margin-top:14px}
+.contato .fone{font-family:var(--pop);font-weight:600;font-size:27px;color:var(--blue);margin-top:28px}
+.contato .end{color:var(--mut);font-size:15px;line-height:1.7;margin-top:12px}
+.contato .photo{border-radius:20px;overflow:hidden;margin-top:34px;max-width:380px;box-shadow:0 14px 40px rgba(16,29,92,.12)}
+.formcard{background:var(--tint);border-radius:24px;padding:44px}
+.formcard label{display:block;font-size:13px;font-weight:600;color:var(--head);margin:20px 0 8px}
+.formcard label:first-child{margin-top:0}
+.formcard input,.formcard textarea{width:100%;background:#fff;border:1px solid #D9E1F0;border-radius:12px;padding:14px 16px;font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;transition:border-color .3s ease,box-shadow .3s ease}
+.formcard input:focus,.formcard textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(41,70,210,.14)}
+.formcard textarea{min-height:130px;resize:vertical}
+.formcard .row{display:flex;align-items:center;gap:22px;margin-top:28px}
+.formcard .rc{font-size:12px;color:#7C89A6}
+@media(max-width:1080px){.ct-grid{grid-template-columns:1fr}}
+
+/* ===== Onde Estamos ===== */
+.onde{padding:20px 0 80px}
+.onde h2{margin-top:14px}
+.mapwrap{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 18px 50px rgba(16,29,92,.13);margin-top:44px;height:420px}
+.mapwrap iframe{width:100%;height:100%;border:0}
+.addrcard{position:absolute;top:50%;left:44px;transform:translateY(-50%);width:340px;background:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 48px rgba(16,29,92,.2)}
+.addrcard small{font-size:10px;font-weight:600;letter-spacing:.16em;color:#7C89A6}
+.addrcard h3{font-family:var(--pop);font-weight:600;font-size:17px;color:var(--head);line-height:1.45;margin:10px 0 16px}
+.addrcard a{color:var(--blue);font-weight:600;font-size:14px}
+@media(max-width:760px){.addrcard{position:relative;transform:none;top:auto;left:auto;width:auto;margin:-60px 20px 0;z-index:2}}
+
+/* ===== Impostômetro ===== */
+.imposto{padding:0 0 90px}
+.impcard{background:var(--tint);border-radius:20px;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;transition:box-shadow .35s ease}
+.impcard:hover{box-shadow:0 14px 40px rgba(16,29,92,.1)}
+.impcard small{display:block;font-size:10px;font-weight:600;letter-spacing:.16em;color:#7C89A6}
+.impcard .l p{color:var(--ink);font-size:14px;font-weight:500;margin-top:6px}
+.impcard .r{text-align:right}
+.impcard .r a{display:block;font-size:11px;color:#7C89A6;margin-bottom:4px}
+.impcard .val{font-family:var(--pop);font-weight:600;font-size:clamp(24px,2.6vw,30px);color:var(--blue);font-variant-numeric:tabular-nums}
+
+/* ===== História ===== */
+.historia{background:var(--tint);padding:100px 0}
+.hi-grid{display:grid;grid-template-columns:1fr 420px;gap:90px;align-items:center}
+.historia h2{margin-top:14px;max-width:430px;line-height:1.2}
+.historia .desc{color:var(--mut);font-size:16px;line-height:1.75;margin:26px 0 36px;max-width:480px}
+.viewerbar{display:inline-flex;align-items:center;gap:28px;background:#fff;border-radius:999px;padding:15px 30px;margin-top:38px;box-shadow:0 12px 32px rgba(16,29,92,.1)}
+.viewerbar b{color:var(--head);font-size:14px}
+.viewerbar span{color:#7C89A6;font-size:16px;cursor:pointer;transition:color .3s ease}
+.viewerbar span:hover{color:var(--blue)}
+.book{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(16,29,92,.2);transition:transform .5s ease}
+.book:hover{transform:translateY(-6px)}
+.book .strip{position:absolute;left:0;right:0;bottom:0;background:rgba(16,29,92,.92);padding:22px 26px;color:#fff}
+.book .strip b{font-family:var(--pop);font-weight:600;font-size:17px;display:block}
+.book .strip span{font-size:13px;color:var(--yel);display:block;margin-top:5px}
+@media(max-width:1080px){.hi-grid{grid-template-columns:1fr}}
+
+/* ===== Footer ===== */
+footer{background:var(--navy);color:#fff}
+.newsband{background:var(--yel)}
+.newsband .inner{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;padding:40px 0}
+.newsband h3{font-family:var(--pop);font-weight:600;font-size:clamp(20px,2vw,25px);color:var(--navy);max-width:440px;line-height:1.3}
+.newsrow{display:flex;gap:10px;flex-wrap:wrap}
+.newsrow input{width:min(360px,80vw);background:#EDB93B;border:none;border-radius:999px;padding:15px 24px;color:var(--navy);font-family:var(--sans);font-size:14px;outline:none}
+.newsrow input::placeholder{color:#8A6E1E}
+.fmain{padding:70px 0 0}
+.flogo{display:flex;align-items:center;gap:12px;margin-bottom:50px}
+.flogo .mark{width:34px;height:34px;border-radius:9px;background:#fff;color:var(--navy);display:grid;place-items:center;font-family:var(--pop);font-weight:600}
+.flogo .l1{font-family:var(--pop);font-weight:600;font-size:16px;letter-spacing:.06em}
+.flogo .l2{font-size:9px;letter-spacing:.2em;color:#8FA0DE;margin-top:2px}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr) 1.2fr;gap:50px}
+.fgrid h4{font-size:10px;font-weight:600;letter-spacing:.2em;color:#8FA0DE;margin-bottom:20px;text-transform:uppercase}
+.fgrid ul{list-style:none}
+.fgrid li a{display:block;color:#C7D2F4;font-size:13px;padding:5px 0;transition:color .3s ease,transform .3s ease}
+.fgrid li a:hover{color:var(--yel);transform:translateX(5px)}
+.fcontact .fone{font-family:var(--pop);font-weight:600;font-size:22px}
+.fcontact .end{color:#C7D2F4;font-size:14px;line-height:1.7;margin-top:14px}
+.socials{display:flex;gap:14px;margin-top:28px}
+.socials a{width:42px;height:42px;background:#1B2A74;border-radius:50%;display:grid;place-items:center;color:#C7D2F4;font-size:12px;font-weight:600;transition:background-color .3s ease,color .3s ease,transform .3s ease}
+.socials a:hover{background:var(--yel);color:var(--navy);transform:translateY(-3px)}
+.fbottom{border-top:1px solid #26337A;margin-top:60px;padding:24px 0 30px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#8FA0DE;font-size:12px}
+@media(max-width:1080px){.fgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.fgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="hwrap">
+    <a href="#" class="logo">
+      <div class="mark">A</div>
+      <div><div class="l1">ACICG</div><div class="l2">A CASA DO EMPRESÁRIO</div></div>
+    </a>
+    <nav class="hnav">
+      <a href="#servicos">Serviços</a>
+      <a href="#hub">Escola de Negócios</a>
+      <a href="#colonia">Colônia de Férias</a>
+      <a href="#noticias">Notícias</a>
+      <a href="#onde">Onde Estamos</a>
+      <a href="#" class="hl">Consulta Boa Vista</a>
+    </nav>
+    <div class="hactions">
+      <a href="#contato" class="btn btn-navy btn-sm">Associe-se</a>
+      <button class="menu-btn" onclick="document.getElementById('ov').classList.add('open')" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MENU OVERLAY -->
+<div class="overlay" id="ov">
+  <button class="close" onclick="closeOv()">×</button>
+  <a href="#" onclick="closeOv()">Home</a>
+  <a href="#servicos" onclick="closeOv()">Serviços</a>
+  <a href="#hub" onclick="closeOv()">Escola de Negócios</a>
+  <a href="#colonia" onclick="closeOv()">Colônia de Férias</a>
+  <a href="#noticias" onclick="closeOv()">Notícias</a>
+  <a href="#" onclick="closeOv()">Consulta Boa Vista</a>
+  <a href="#contato" onclick="closeOv()">Fale Conosco</a>
+  <a href="#onde" onclick="closeOv()">Onde Estamos</a>
+  <a href="#" onclick="closeOv()">Revistas</a>
+  <a href="#" onclick="closeOv()">2ª Via de Boletos</a>
+  <a href="#" onclick="closeOv()">Negociação de Dívidas</a>
+  <a href="#" onclick="closeOv()">Trabalhe Conosco</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="kicker tag in d1">NOSSA MISSÃO · DESDE 1926</span>
+  <h1 class="in d2">Promover a união da<br>classe empresarial</h1>
+  <p class="in d3">Fortalecendo sua atuação e influência nas áreas política, econômica e social, viabilizando o seu desenvolvimento de forma sustentável.</p>
+  <div class="ctas in d4">
+    <a href="#contato" class="btn btn-blue">Associe-se <span class="ar">→</span></a>
+    <a href="#contato" class="btn btn-tint">Fale Conosco</a>
+  </div>
+  <div class="mosaic in d5">
+    <div class="tile t1"><img src="assets/hero-bg.jpg" alt="Diretoria da ACICG"></div>
+    <div class="tile t2"><img src="assets/hero-2.jpg" alt="Empreendedora em sua loja"></div>
+    <div class="tile t3"><img src="assets/hero-3.jpg" alt="Profissional em Campo Grande"></div>
+    <div class="tile t4"><img src="assets/hero-4.jpg" alt="Colônia de Férias"></div>
+    <div class="tile t5"><img src="assets/missao.jpg" alt="Networking empresarial"></div>
+    <div class="chip100"><div class="ic">★</div><div><b>100 anos</b><span>ao lado do empresário</span></div></div>
+  </div>
+</section>
+
+<!-- PARCEIROS -->
+<section class="parceiros reveal">
+  <p>Soluções e parcerias que fortalecem quem empreende em Campo Grande</p>
+  <div class="logos">
+    <span>Equifax | BoaVista</span><span>CBMAE</span><span>Fecomércio MS</span><span>Senac</span><span>HUB ACICG</span>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="container">
+    <h2 class="title reveal">Serviços</h2>
+    <p class="sub reveal dl1">Confira os principais serviços e soluções ofertados pela Casa do Empresário.</p>
+    <div class="svc-grid">
+      <div class="svc reveal"><div class="ic">✓</div><h3>Certificado Digital</h3><a href="#">Saiba mais <span class="ar">→</span></a></div>
+      <div class="svc reveal dl1"><div class="ic">◔</div><h3>Consulta Boa Vista</h3><a href="#">Saiba mais <span class="ar">→</span></a></div>
+      <div class="svc reveal dl2"><div class="ic">⚖</div><h3>CBMAE · Mediação e Arbitragem</h3><a href="#">Saiba mais <span class="ar">→</span></a></div>
+      <div class="svc reveal dl3"><div class="ic y">❋</div><h3>Selo Sustentabilidade</h3><a href="#">Saiba mais <span class="ar">→</span></a></div>
+      <div class="svc reveal dl4"><div class="ic">§</div><h3>Assessoria Jurídica</h3><a href="#">Saiba mais <span class="ar">→</span></a></div>
+    </div>
+    <div class="more reveal"><a href="#" class="btn btn-outline">Ver mais</a></div>
+  </div>
+</section>
+
+<!-- COLÔNIA -->
+<section class="colonia" id="colonia">
+  <div class="container">
+    <div class="grid">
+      <div class="photo reveal">
+        <img src="assets/colonia.jpg" alt="Vista aérea da Colônia de Férias da ACICG">
+        <div class="ychip"><b>17 hectares</b><span>de área verde</span></div>
+        <div class="playchip"><span class="p">▶</span> Assista ao vídeo</div>
+      </div>
+      <div class="reveal dl1">
+        <span class="kicker on-tint">O CLUBE DO ASSOCIADO</span>
+        <h2 class="title">Colônia de Férias<br>da ACICG</h2>
+        <p class="desc">Um clube completo, com 17 hectares de área verde, parque aquático com tobogã, parque infantil, quadras poliesportivas, sauna, campo de futebol, auditório para eventos, área para camping, quiosques, bangalôs e muito mais!</p>
+        <a href="#" class="btn btn-blue">Saiba mais</a>
+      </div>
+    </div>
+    <div class="mini-grid">
+      <div class="mini reveal"><h3>Como utilizar o clube</h3><p>Associados, colaboradores de empresas associadas e convidados podem utilizar o Clube. Saiba como clicando abaixo.</p><a href="#">Saiba mais →</a></div>
+      <div class="mini reveal dl1"><h3>Notícias e eventos</h3><p>Fique por dentro de tudo o que acontece na Colônia de Férias da ACICG.</p><a href="#">Saiba mais →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- HUB -->
+<section class="hub" id="hub">
+  <div class="container">
+    <div class="hubbox reveal">
+      <div>
+        <span class="kicker">NEGÓCIOS E INOVAÇÃO</span>
+        <h2>HUB ACICG</h2>
+        <p class="desc">Capacitar empresários e suas equipes, fornecendo ferramentas e conhecimentos necessários para enfrentar os desafios modernos do mercado de negócios.</p>
+        <div class="phonechip"><small>INFORMAÇÕES</small><b>(67) 9 8409-1014</b></div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#contato" class="btn btn-yel">Contato</a>
+          <a href="#" class="btn btn-outline-w">Saiba mais</a>
+        </div>
+      </div>
+      <div class="photo"><img src="assets/hub.jpg" alt="Workshop no HUB ACICG"></div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTÍCIAS -->
+<section class="noticias" id="noticias">
+  <div class="container">
+    <div class="top reveal">
+      <div>
+        <span class="kicker">ACONTECE NA ACICG</span>
+        <h2 class="title" style="margin-top:14px">Notícias</h2>
+      </div>
+      <a href="#" class="btn btn-outline">Ver mais</a>
+    </div>
+    <div class="news-grid">
+      <a href="#" class="featured reveal">
+        <div class="photo">
+          <img src="assets/noticia.jpg" alt="Centro de Campo Grande">
+          <span class="tag-destaque">DESTAQUE</span>
+        </div>
+        <h3>Pequenos empreendedores podem resolver demandas do negócio sem sair do Centro</h3>
+        <span class="more">Ler notícia →</span>
+      </a>
+      <div class="nlist reveal dl1">
+        <a href="#" class="nrow"><div><div class="meta">ARTIGO</div><h4>Quem fala pelo pequeno empresário quando ele não está na mesa de decisões?</h4></div><span class="ar">→</span></a>
+        <a href="#" class="nrow"><div><div class="meta">10 DE JULHO DE 2026</div><h4>Evento na ACICG debate impactos das canetas emagrecedoras no consumo e nos negócios de alimentação</h4></div><span class="ar">→</span></a>
+        <a href="#" class="nrow"><div><div class="meta">6 DE JULHO DE 2026</div><h4>Campo Grande vive ciclo de expansão imobiliária e abre oportunidades para investidores</h4></div><span class="ar">→</span></a>
+        <a href="#" class="nrow"><div><div class="meta">25 DE JUNHO DE 2026</div><h4>Núcleo de Contabilidade da ACICG alerta sobre mudanças na emissão de notas fiscais</h4></div><span class="ar">→</span></a>
+        <a href="#" class="nrow"><div><div class="meta">22 DE JUNHO DE 2026</div><h4>Evento da ACICG reúne especialistas para discutir a atualização da NR-1 e impactos nas empresas</h4></div><span class="ar">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTOS -->
+<section class="eventos" id="eventos">
+  <div class="container">
+    <div class="ev-grid">
+      <div class="reveal">
+        <span class="kicker on-tint">AGENDA</span>
+        <h2 class="title">Próximos<br>Eventos</h2>
+        <p class="sub">Confira nossa agenda de eventos e fique por dentro das novas datas.</p>
+        <div class="real">
+          <small>REALIZAÇÃO</small>
+          <p>Senac Hub Academy · Fecomércio MS<br>Senac · HUB ACICG · 100 anos ACICG</p>
+        </div>
+      </div>
+      <div class="agenda reveal dl1">
+        <div class="arow"><span class="datechip">06 JUL</span><h4>Gestão de Mídias Sociais — Social Media</h4><span class="ar">→</span></div>
+        <div class="arow"><span class="datechip">20 JUL</span><h4>Business Intelligence com Power BI</h4><span class="ar">→</span></div>
+        <div class="arow"><span class="datechip">20 JUL</span><h4>Casais Empreendedores</h4><span class="ar">→</span></div>
+        <div class="arow"><span class="datechip">21 JUL</span><h4>14ª Rodada de Negócios</h4><span class="ar">→</span></div>
+        <div class="arow"><span class="datechip">29 JUL</span><h4>Oficina do Empresarinho 2026</h4><span class="ar">→</span></div>
+        <div class="foot">+ programação completa na agenda de eventos</div>
+      </div>
+      <div class="qrcard reveal dl2">
+        <h3>Inscreva-se aqui</h3>
+        <div class="qr"><img src="assets/qr.png" alt="QR Code da agenda de eventos"></div>
+        <p>Aponte a câmera para o QR Code e garanta sua vaga.</p>
+        <a href="https://acicg.com.br/agenda-de-eventos/" class="btn btn-yel btn-sm">Ver agenda</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FALE CONOSCO -->
+<section class="contato" id="contato">
+  <div class="container">
+    <div class="ct-grid">
+      <div class="reveal">
+        <span class="kicker">CANAL DIRETO</span>
+        <h2 class="title">Fale Conosco</h2>
+        <p class="sub">Tire dúvidas sobre serviços, associação e eventos.<br>Nossa equipe está pronta para atender você.</p>
+        <div class="fone">(67) 3312-5000</div>
+        <p class="end">Rua 15 de Novembro, 390 — Centro<br>Campo Grande · MS</p>
+        <div class="photo"><img src="assets/atendimento.jpg" alt="Atendimento ACICG"></div>
+      </div>
+      <form class="formcard reveal dl1" onsubmit="event.preventDefault();alert('Mensagem enviada! (demonstração)')">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" required>
+        <label for="cel">Celular</label>
+        <input id="cel" type="tel" required>
+        <label for="email">Email</label>
+        <input id="email" type="email" required>
+        <label for="msg">Mensagem</label>
+        <textarea id="msg"></textarea>
+        <div class="row">
+          <button type="submit" class="btn btn-blue">Enviar</button>
+          <span class="rc">Protegido por reCAPTCHA</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ONDE ESTAMOS -->
+<section class="onde" id="onde">
+  <div class="container">
+    <div class="reveal">
+      <span class="kicker">VISITE A CASA DO EMPRESÁRIO</span>
+      <h2 class="title">Onde Estamos</h2>
+    </div>
+    <div class="mapwrap reveal dl1">
+      <iframe src="https://www.google.com/maps?q=R.+15+de+Novembro,+390+-+Centro,+Campo+Grande+-+MS&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa — Sede ACICG"></iframe>
+      <div class="addrcard">
+        <small>SEDE ACICG</small>
+        <h3>Rua 15 de Novembro, 390<br>Centro — Campo Grande · MS</h3>
+        <a href="https://www.google.com/maps/search/R.+15+de+Novembro,+390+-+Centro,+Campo+Grande+-+MS" target="_blank" rel="noopener">Como chegar →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPOSTÔMETRO -->
+<section class="imposto">
+  <div class="container">
+    <div class="impcard reveal">
+      <div class="l">
+        <small>IMPOSTÔMETRO</small>
+        <p>Quanto o Brasil já pagou de impostos em 2026</p>
+      </div>
+      <div class="r">
+        <a href="https://impostometro.com.br" target="_blank" rel="noopener">impostometro.com.br ↗</a>
+        <div class="val" id="impval">R$ 0,00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTÓRIA -->
+<section class="historia">
+  <div class="container">
+    <div class="hi-grid">
+      <div class="reveal">
+        <span class="kicker on-tint">MEMÓRIA</span>
+        <h2 class="title">Conheça nossa história</h2>
+        <p class="desc">Folheie o livro Registros na História — 1926 · 2016, que celebra as nove primeiras décadas da Associação Comercial e Industrial de Campo Grande. São 251 páginas de memória do empresariado sul-mato-grossense.</p>
+        <a href="#" class="btn btn-blue">Abrir o livro</a>
+        <div class="viewerbar"><b>1 / 251</b><span>⊞</span><span>+</span><span>−</span><span>⛶</span><span>↗</span><span>⋯</span></div>
+      </div>
+      <div class="book reveal dl1">
+        <img src="assets/historia.jpg" alt="Livro Registros na História 1926-2016">
+        <div class="strip"><b>REGISTROS NA HISTÓRIA</b><span>1926 — 2016 · ACICG 90 anos</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="newsband">
+    <div class="container inner reveal">
+      <h3>Receba nossas novidades e promoções</h3>
+      <form class="newsrow" onsubmit="event.preventDefault();alert('Cadastro realizado! (demonstração)')">
+        <input type="email" placeholder="Digite seu e-mail" required>
+        <button type="submit" class="btn btn-navy">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+  <div class="container fmain">
+    <div class="flogo reveal">
+      <div class="mark">A</div>
+      <div><div class="l1">ACICG</div><div class="l2">A CASA DO EMPRESÁRIO · DESDE 1926</div></div>
+    </div>
+    <div class="fgrid">
+      <div class="reveal dl1">
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="#">Início</a></li><li><a href="#noticias">Notícias</a></li><li><a href="#servicos">Serviços</a></li>
+          <li><a href="#">Assessoria jurídica</a></li><li><a href="#">Boa Vista Serviços</a></li><li><a href="#">CBMAE</a></li>
+          <li><a href="#">Certificado Digital</a></li><li><a href="#">Indique e Ganhe</a></li><li><a href="#">2ª Via de boleto</a></li><li><a href="#">Diretoria</a></li>
+        </ul>
+      </div>
+      <div class="reveal dl2">
+        <h4>Serviços ao Associado</h4>
+        <ul>
+          <li><a href="#">Locação de Salas</a></li><li><a href="#">Medicina do Trabalho</a></li><li><a href="#">Pesquisa</a></li>
+          <li><a href="#">Núcleos Setoriais</a></li><li><a href="#">PROCON Empresarial</a></li><li><a href="#hub">HUB ACICG</a></li>
+          <li><a href="#">Credenciamento</a></li><li><a href="#">Trabalhe Conosco</a></li><li><a href="#">Material Institucional</a></li>
+        </ul>
+      </div>
+      <div class="reveal dl3">
+        <h4>A ACICG</h4>
+        <ul>
+          <li><a href="#eventos">Agenda de Eventos</a></li><li><a href="#colonia">Colônia de Férias</a></li><li><a href="#">Infraestrutura</a></li>
+          <li><a href="#eventos">Eventos</a></li><li><a href="#">Tab. de Valores de Serviços</a></li><li><a href="#">Reg. Colônia de Férias</a></li>
+          <li><a href="#onde">Mapa da Localização</a></li><li><a href="#">Revistas</a></li><li><a href="#">Quem somos</a></li><li><a href="#">Política de Privacidade</a></li>
+        </ul>
+      </div>
+      <div class="fcontact reveal dl4">
+        <h4>Fale Conosco</h4>
+        <div class="fone">(67) 3312-5000</div>
+        <p class="end">Rua 15 de Novembro, 390 — Centro<br>Campo Grande · MS</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook">Fb</a>
+          <a href="#" aria-label="Instagram">Ig</a>
+          <a href="#" aria-label="WhatsApp">Wa</a>
+        </div>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>Copyright© 2022 – Todos os direitos reservados</span>
+      <span>Associação Comercial e Industrial de Campo Grande</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Header shadow on scroll
+const header=document.getElementById('header');
+addEventListener('scroll',()=>{header.classList.toggle('scrolled',scrollY>30)},{passive:true});
+
+// Reveal on scroll
+const io=new IntersectionObserver(entries=>{
+  for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} }
+},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Menu overlay
+function closeOv(){document.getElementById('ov').classList.remove('open')}
+addEventListener('keydown',e=>{if(e.key==='Escape')closeOv()});
+
+// Impostômetro — contador animado
+const impEl=document.getElementById('impval');
+const TARGET=1847293514208.73;
+const fmt=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+let started=false;
+const impIO=new IntersectionObserver(es=>{
+  if(es[0].isIntersecting&&!started){
+    started=true; impIO.disconnect();
+    const t0=performance.now(), DUR=2200;
+    const ease=t=>1-Math.pow(1-t,4);
+    (function tick(now){
+      const p=Math.min((now-t0)/DUR,1);
+      impEl.textContent=fmt(TARGET*ease(p));
+      if(p<1) requestAnimationFrame(tick);
+      else setInterval(()=>{ impEl.textContent=fmt(TARGET+(performance.now()-t0)/1000*5800); },1000);
+    })(t0);
+  }
+},{threshold:.4});
+impIO.observe(impEl);
+</script>
+</body>
+</html>
